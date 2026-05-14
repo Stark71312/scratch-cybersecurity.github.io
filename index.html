@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberShield — What is Cybersecurity?</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #00f5ff;
+    --green: #00ff88;
+    --magenta: #ff006e;
+    --orange: #ff6b00;
+    --dark: #020d1a;
+    --darker: #010812;
+    --card: rgba(0,245,255,0.04);
+    --card-border: rgba(0,245,255,0.15);
+    --text: #c8e6f0;
+    --muted: #4a7a8a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--darker);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    overflow-x: hidden;
+  }
+
+  /* ── CANVAS BACKGROUND ── */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(1,8,18,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px var(--cyan);
+  }
+
+  .nav-logo span { color: var(--magenta); }
+
+  nav ul {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+
+  nav a:hover {
+    color: var(--cyan);
+    text-shadow: 0 0 12px var(--cyan);
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+    padding-top: 80px;
+  }
+
+  .hero-inner { max-width: 900px; }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: var(--green);
+    border: 1px solid var(--green);
+    padding: 0.4rem 1.5rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    animation: pulse-border 3s infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 5px var(--green), inset 0 0 5px rgba(0,255,136,0.05); }
+    50% { box-shadow: 0 0 20px var(--green), inset 0 0 15px rgba(0,255,136,0.1); }
+  }
+
+  h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: #fff;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+
+  h1 .glitch {
+    position: relative;
+    color: var(--cyan);
+    text-shadow: 0 0 30px var(--cyan);
+    display: inline-block;
+  }
+
+  h1 .glitch::before,
+  h1 .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  h1 .glitch::before {
+    color: var(--magenta);
+    animation: glitch-1 3s infinite;
+    clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+    text-shadow: none;
+  }
+
+  h1 .glitch::after {
+    color: var(--green);
+    animation: glitch-2 3s infinite;
+    clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+    text-shadow: none;
+  }
+
+  @keyframes glitch-1 {
+    0%, 90%, 100% { transform: translate(0); opacity: 0; }
+    92% { transform: translate(-3px, 1px); opacity: 1; }
+    94% { transform: translate(3px, -1px); opacity: 1; }
+    96% { transform: translate(-2px, 0); opacity: 1; }
+    98% { transform: translate(0); opacity: 0; }
+  }
+
+  @keyframes glitch-2 {
+    0%, 88%, 100% { transform: translate(0); opacity: 0; }
+    90% { transform: translate(3px, -2px); opacity: 1; }
+    92% { transform: translate(-3px, 2px); opacity: 1; }
+    94% { transform: translate(2px, 0); opacity: 1; }
+    96% { transform: translate(0); opacity: 0; }
+  }
+
+  .hero-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    line-height: 1.8;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #typed-text {
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--cyan);
+  }
+
+  .cursor {
+    animation: blink 1s infinite;
+    color: var(--cyan);
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .stat-item:nth-child(2) { animation-delay: 1.3s; }
+  .stat-item:nth-child(3) { animation-delay: 2.6s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--cyan);
+    text-shadow: 0 0 20px var(--cyan);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .scroll-cue {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--cyan), transparent);
+    animation: scroll-drop 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-drop {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+
+  /* ── SECTION COMMON ── */
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 7rem 2rem;
+  }
+
+  .section-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 5px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  .section-tag.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease 0.1s;
+  }
+
+  h2.visible { opacity: 1; transform: translateY(0); }
+  h2 .accent { color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
+  h2 .accent-m { color: var(--magenta); text-shadow: 0 0 20px var(--magenta); }
+  h2 .accent-g { color: var(--green); text-shadow: 0 0 20px var(--green); }
+
+  /* ── WHAT IS SECTION ── */
+  #what {
+    background: linear-gradient(180deg, var(--darker) 0%, rgba(0,245,255,0.02) 50%, var(--darker) 100%);
+  }
+
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  .what-text p {
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease;
+  }
+
+  .what-text p.visible { opacity: 1; transform: translateX(0); }
+  .what-text p:nth-child(2) { transition-delay: 0.1s; }
+  .what-text p:nth-child(3) { transition-delay: 0.2s; }
+
+  .what-text .highlight { color: var(--cyan); font-weight: 600; }
+
+  .terminal-box {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(30px) scale(0.97);
+    transition: all 0.7s ease 0.2s;
+    box-shadow: 0 0 40px rgba(0,245,255,0.08);
+  }
+
+  .terminal-box.visible { opacity: 1; transform: translateX(0) scale(1); }
+
+  .terminal-bar {
+    background: rgba(0,245,255,0.08);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .t-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .t-dot:nth-child(1) { background: #ff5f56; }
+  .t-dot:nth-child(2) { background: #ffbd2e; }
+  .t-dot:nth-child(3) { background: #27c93f; }
+
+  .terminal-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-left: 0.5rem;
+  }
+
+  .terminal-body {
+    padding: 1.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 2;
+  }
+
+  .t-line { display: block; opacity: 0; }
+  .t-line.show { animation: fadeInLine 0.3s forwards; }
+
+  @keyframes fadeInLine {
+    from { opacity: 0; transform: translateX(-5px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .t-prompt { color: var(--green); }
+  .t-cmd { color: var(--cyan); }
+  .t-output { color: var(--text); padding-left: 1.2rem; }
+  .t-warn { color: var(--orange); }
+  .t-success { color: var(--green); }
+  .t-error { color: var(--magenta); }
+
+  /* ── PILLARS SECTION ── */
+  #pillars { background: var(--darker); }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .pillar-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .pillar-card.visible { opacity: 1; transform: translateY(0); }
+  .pillar-card:nth-child(2) { transition-delay: 0.1s; }
+  .pillar-card:nth-child(3) { transition-delay: 0.2s; }
+  .pillar-card:nth-child(4) { transition-delay: 0.3s; }
+  .pillar-card:nth-child(5) { transition-delay: 0.4s; }
+  .pillar-card:nth-child(6) { transition-delay: 0.5s; }
+
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+
+  .pillar-card:hover::before { transform: translateX(0); }
+
+  .pillar-card:hover {
+    border-color: rgba(0,245,255,0.4);
+    box-shadow: 0 0 30px rgba(0,245,255,0.1);
+    transform: translateY(-5px);
+  }
+
+  .pillar-card.visible:hover { transform: translateY(-5px); }
+
+  .pillar-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .pillar-card h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .pillar-card p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .pillar-card .tag {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+    text-transform: uppercase;
+  }
+
+  .tag-cyan { background: rgba(0,245,255,0.1); color: var(--cyan); border: 1px solid rgba(0,245,255,0.3); }
+  .tag-green { background: rgba(0,255,136,0.1); color: var(--green); border: 1px solid rgba(0,255,136,0.3); }
+  .tag-magenta { background: rgba(255,0,110,0.1); color: var(--magenta); border: 1px solid rgba(255,0,110,0.3); }
+  .tag-orange { background: rgba(255,107,0,0.1); color: var(--orange); border: 1px solid rgba(255,107,0,0.3); }
+
+  /* ── THREATS SECTION ── */
+  #threats {
+    background: linear-gradient(180deg, var(--darker) 0%, rgba(255,0,110,0.03) 50%, var(--darker) 100%);
+  }
+
+  .threats-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  .threat-list { display: flex; flex-direction: column; gap: 1rem; }
+
+  .threat-item {
+    background: var(--card);
+    border: 1px solid rgba(255,0,110,0.1);
+    border-left: 3px solid var(--magenta);
+    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.5s ease;
+    cursor: default;
+  }
+
+  .threat-item.visible { opacity: 1; transform: translateX(0); }
+  .threat-item:nth-child(2) { transition-delay: 0.1s; border-left-color: var(--orange); border-color: rgba(255,107,0,0.1); }
+  .threat-item:nth-child(3) { transition-delay: 0.2s; border-left-color: #8b00ff; border-color: rgba(139,0,255,0.1); }
+  .threat-item:nth-child(4) { transition-delay: 0.3s; border-left-color: var(--cyan); border-color: rgba(0,245,255,0.1); }
+
+  .threat-item:hover {
+    border-color: rgba(255,0,110,0.4);
+    background: rgba(255,0,110,0.06);
+    transform: translateX(5px);
+  }
+
+  .threat-item:nth-child(2):hover { border-color: rgba(255,107,0,0.4); background: rgba(255,107,0,0.06); }
+  .threat-item.visible:hover { transform: translateX(5px); }
+
+  .threat-icon-wrap {
+    width: 40px; height: 40px;
+    flex-shrink: 0;
+    background: rgba(255,0,110,0.1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+
+  .threat-info h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: #fff;
+    margin-bottom: 0.3rem;
+  }
+
+  .threat-info p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+
+  .threat-meter {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.6s ease 0.3s;
+  }
+
+  .threat-meter.visible { opacity: 1; transform: translateX(0); }
+
+  .meter-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+  }
+
+  .meter-row { margin-bottom: 1.4rem; }
+
+  .meter-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .meter-label span:last-child { color: var(--cyan); }
+
+  .meter-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    border-radius: 3px;
+    width: 0;
+    transition: width 1.5s ease;
+  }
+
+  .fill-red { background: linear-gradient(90deg, var(--magenta), #ff4488); }
+  .fill-orange { background: linear-gradient(90deg, var(--orange), #ffaa00); }
+  .fill-purple { background: linear-gradient(90deg, #8b00ff, #cc44ff); }
+  .fill-cyan { background: linear-gradient(90deg, var(--cyan), #44ffdd); }
+
+  /* ── PROTECTION SECTION ── */
+  #protect { background: var(--darker); }
+
+  .protect-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .protect-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .protect-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  .protect-card:hover::after { transform: scaleX(1); }
+
+  .protect-card.visible { opacity: 1; transform: scale(1); }
+  .protect-card:nth-child(2) { transition-delay: 0.1s; }
+  .protect-card:nth-child(3) { transition-delay: 0.2s; }
+  .protect-card:nth-child(4) { transition-delay: 0.3s; }
+  .protect-card:hover { border-color: rgba(0,255,136,0.3); box-shadow: 0 0 25px rgba(0,255,136,0.08); }
+
+  .protect-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    color: var(--green);
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  .protect-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+
+  .protect-card h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    color: #fff;
+    margin-bottom: 0.8rem;
+  }
+
+  .protect-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CIA TRIAD ── */
+  #cia { background: linear-gradient(180deg, var(--darker) 0%, rgba(0,255,136,0.02) 50%, var(--darker) 100%); }
+
+  .triad-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .triad-card {
+    width: 280px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px) rotateX(15deg);
+    transition: all 0.7s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .triad-card.visible { opacity: 1; transform: translateY(0) rotateX(0); }
+  .triad-card:nth-child(2) { transition-delay: 0.15s; }
+  .triad-card:nth-child(3) { transition-delay: 0.3s; }
+
+  .triad-letter {
+    font-family: 'Orbitron', monospace;
+    font-size: 4rem;
+    font-weight: 900;
+    display: block;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+
+  .triad-card:nth-child(1) .triad-letter {
+    color: var(--cyan);
+    text-shadow: 0 0 30px var(--cyan);
+  }
+  .triad-card:nth-child(2) .triad-letter {
+    color: var(--green);
+    text-shadow: 0 0 30px var(--green);
+  }
+  .triad-card:nth-child(3) .triad-letter {
+    color: var(--magenta);
+    text-shadow: 0 0 30px var(--magenta);
+  }
+
+  .triad-word {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .triad-card p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: rgba(0,0,0,0.7);
+    border-top: 1px solid var(--card-border);
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-brand {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--cyan);
+    text-shadow: 0 0 15px var(--cyan);
+  }
+
+  .footer-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── SCANLINES ── */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  #scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    z-index: 200;
+    transition: width 0.1s;
+    box-shadow: 0 0 10px var(--cyan);
+  }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    z-index: 110;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--cyan);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 6px var(--cyan);
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE MENU OVERLAY ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(1,8,18,0.97);
+    z-index: 105;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .mobile-menu.open { opacity: 1; }
+  .mobile-menu a {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav {
+      padding: 1rem 1.5rem;
+    }
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+
+    .section-inner { padding: 4rem 1.5rem; }
+
+    h1 { font-size: clamp(2.2rem, 12vw, 4rem); }
+
+    .hero-stats {
+      gap: 1.5rem;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-num { font-size: 1.8rem; }
+
+    .what-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .terminal-body { font-size: 0.75rem; padding: 1rem; }
+
+    .pillars-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .threats-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .protect-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .triad-wrap { flex-direction: column; align-items: center; }
+    .triad-card { width: 100%; max-width: 340px; }
+
+    footer {
+      padding: 2rem 1.5rem;
+      flex-direction: column;
+      gap: 0.8rem;
+      text-align: center;
+    }
+
+    .hero-badge { font-size: 0.65rem; letter-spacing: 2px; }
+    .hero-subtitle { font-size: 0.85rem; }
+    .scroll-cue { margin-top: 3rem; }
+  }
+
+  @media (max-width: 480px) {
+    .protect-grid { grid-template-columns: 1fr; }
+    h2 { font-size: 1.6rem; }
+    .pillar-card { padding: 1.5rem; }
+    .terminal-body { font-size: 0.7rem; line-height: 1.8; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div id="scroll-progress"></div>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#what" class="mobile-link">What</a>
+  <a href="#pillars" class="mobile-link">Domains</a>
+  <a href="#threats" class="mobile-link">Threats</a>
+  <a href="#cia" class="mobile-link">CIA Triad</a>
+  <a href="#protect" class="mobile-link">Protect</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Cyber<span>Shield</span></div>
+  <ul>
+    <li><a href="#what">WHAT</a></li>
+    <li><a href="#pillars">DOMAINS</a></li>
+    <li><a href="#threats">THREATS</a></li>
+    <li><a href="#cia">CIA TRIAD</a></li>
+    <li><a href="#protect">PROTECT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">// SYSTEM ONLINE //</div>
+    <h1>
+      What is<br>
+      <span class="glitch" data-text="CYBERSECURITY">CYBERSECURITY</span>
+    </h1>
+    <p class="hero-subtitle">
+      <span id="typed-text"></span><span class="cursor">_</span>
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" id="counter1">0</span>
+        <span class="stat-label">Attacks Per Day</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="counter2">$0T</span>
+        <span class="stat-label">Annual Cybercrime Cost</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="counter3">0M</span>
+        <span class="stat-label">Security Jobs Shortage</span>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <span>Scroll to explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS CYBERSECURITY -->
+<section id="what">
+  <div class="section-inner">
+    <p class="section-tag">// DEFINITION</p>
+    <h2><span class="accent">Understanding</span> Cybersecurity</h2>
+    <div class="what-grid">
+      <div class="what-text">
+        <p><span class="highlight">Cybersecurity</span> is the practice of protecting computers, servers, mobile devices, electronic systems, networks, and data from digital attacks, theft, damage, and unauthorized access.</p>
+        <p>In an era where virtually everything is connected, cybersecurity forms the <span class="highlight">digital immune system</span> of our society — guarding sensitive data, critical infrastructure, personal privacy, and national security.</p>
+        <p>It encompasses technologies, processes, and practices designed to defend against the ever-evolving landscape of <span class="highlight">cyber threats</span> — from lone hackers to nation-state actors.</p>
+      </div>
+      <div class="terminal-box" id="terminal-box">
+        <div class="terminal-bar">
+          <div class="t-dot"></div>
+          <div class="t-dot"></div>
+          <div class="t-dot"></div>
+          <span class="terminal-title">SYSTEM_SCAN.exe</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line" id="tl1"><span class="t-prompt">$ </span><span class="t-cmd">init --cyber-scan</span></span>
+          <span class="t-line" id="tl2"><span class="t-output">Initializing threat detection...</span></span>
+          <span class="t-line" id="tl3"><span class="t-success">✓ Firewall: ACTIVE</span></span>
+          <span class="t-line" id="tl4"><span class="t-success">✓ Encryption: AES-256</span></span>
+          <span class="t-line" id="tl5"><span class="t-warn">⚠ Intrusion attempt blocked</span></span>
+          <span class="t-line" id="tl6"><span class="t-error">✗ Malware detected: Quarantined</span></span>
+          <span class="t-line" id="tl7"><span class="t-output">Running countermeasures...</span></span>
+          <span class="t-line" id="tl8"><span class="t-success">✓ System integrity: SECURED</span></span>
+          <span class="t-line" id="tl9"><span class="t-prompt">$ </span><span class="t-cmd">status --all-systems</span></span>
+          <span class="t-line" id="tl10"><span class="t-success">ALL SYSTEMS NOMINAL ✓</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS / DOMAINS -->
+<section id="pillars">
+  <div class="section-inner">
+    <p class="section-tag">// DOMAINS</p>
+    <h2>Key <span class="accent">Security</span> Domains</h2>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <span class="pillar-icon">🌐</span>
+        <h3>Network Security</h3>
+        <p>Protecting computer networks from intruders through firewalls, VPNs, intrusion detection systems, and network segmentation.</p>
+        <span class="tag tag-cyan">Infrastructure</span>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">☁️</span>
+        <h3>Cloud Security</h3>
+        <p>Securing cloud computing environments and data stored in the cloud, ensuring access control, compliance, and data integrity.</p>
+        <span class="tag tag-green">Cloud</span>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">📱</span>
+        <h3>Application Security</h3>
+        <p>Finding and fixing vulnerabilities in software applications through secure coding, testing, and application firewalls.</p>
+        <span class="tag tag-cyan">Software</span>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🔒</span>
+        <h3>Data Security</h3>
+        <p>Protecting digital information through encryption, tokenization, and data masking policies throughout its lifecycle.</p>
+        <span class="tag tag-magenta">Encryption</span>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🤖</span>
+        <h3>Endpoint Security</h3>
+        <p>Securing individual devices like computers, mobile phones, and IoT sensors that connect to enterprise networks.</p>
+        <span class="tag tag-orange">Devices</span>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🧠</span>
+        <h3>Operational Security</h3>
+        <p>The processes and decisions for handling and protecting data assets — including risk management, policies, and user behavior.</p>
+        <span class="tag tag-green">Process</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREATS -->
+<section id="threats">
+  <div class="section-inner">
+    <p class="section-tag">// THREAT LANDSCAPE</p>
+    <h2>Known <span class="accent-m">Threats</span> & Attacks</h2>
+    <div class="threats-layout">
+      <div class="threat-list">
+        <div class="threat-item">
+          <div class="threat-icon-wrap">🦠</div>
+          <div class="threat-info">
+            <h4>Malware</h4>
+            <p>Malicious software — viruses, trojans, ransomware — designed to disrupt, damage, or gain unauthorized access to systems.</p>
+          </div>
+        </div>
+        <div class="threat-item">
+          <div class="threat-icon-wrap">🎣</div>
+          <div class="threat-info">
+            <h4>Phishing</h4>
+            <p>Fraudulent communications that appear to come from a reputable source, tricking users into revealing sensitive information.</p>
+          </div>
+        </div>
+        <div class="threat-item">
+          <div class="threat-icon-wrap">👤</div>
+          <div class="threat-info">
+            <h4>Man-in-the-Middle</h4>
+            <p>Attackers intercept communication between two parties to eavesdrop or alter data in transit without detection.</p>
+          </div>
+        </div>
+        <div class="threat-item">
+          <div class="threat-icon-wrap">💥</div>
+          <div class="threat-info">
+            <h4>DDoS Attack</h4>
+            <p>Overwhelming a server or network with traffic from multiple sources to disrupt normal service availability.</p>
+          </div>
+        </div>
+      </div>
+      <div class="threat-meter" id="threat-meter">
+        <div class="meter-title">// Threat Severity Index</div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Ransomware</span><span id="m1">0%</span></div>
+          <div class="meter-bar"><div class="meter-fill fill-red" data-target="92"></div></div>
+        </div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Phishing</span><span id="m2">0%</span></div>
+          <div class="meter-bar"><div class="meter-fill fill-orange" data-target="85"></div></div>
+        </div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Zero-Day Exploits</span><span id="m3">0%</span></div>
+          <div class="meter-bar"><div class="meter-fill fill-purple" data-target="78"></div></div>
+        </div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Insider Threats</span><span id="m4">0%</span></div>
+          <div class="meter-bar"><div class="meter-fill fill-cyan" data-target="64"></div></div>
+        </div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Supply Chain</span><span id="m5">0%</span></div>
+          <div class="meter-bar"><div class="meter-fill fill-red" data-target="71"></div></div>
+        </div>
+        <div class="meter-row">
+          <div class="meter-label"><span>Social Engineering</span><span id="m6">0%</span></div>
+          <div class="meter-bar"><div class="meter-fill fill-orange" data-target="80"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIA TRIAD -->
+<section id="cia">
+  <div class="section-inner">
+    <p class="section-tag">// CORE PRINCIPLES</p>
+    <h2>The <span class="accent-g">CIA</span> Triad</h2>
+    <div class="triad-wrap">
+      <div class="triad-card">
+        <span class="triad-letter">C</span>
+        <div class="triad-word">Confidentiality</div>
+        <p>Only authorized individuals can access sensitive information. Enforced through encryption, access controls, and authentication protocols.</p>
+      </div>
+      <div class="triad-card">
+        <span class="triad-letter">I</span>
+        <div class="triad-word">Integrity</div>
+        <p>Data must remain accurate and trustworthy. Checksums, digital signatures, and version control ensure information hasn't been tampered with.</p>
+      </div>
+      <div class="triad-card">
+        <span class="triad-letter">A</span>
+        <div class="triad-word">Availability</div>
+        <p>Systems and data must be accessible when needed. Achieved through redundancy, failover systems, and protection against denial-of-service attacks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO PROTECT -->
+<section id="protect">
+  <div class="section-inner">
+    <p class="section-tag">// DEFENSE PROTOCOL</p>
+    <h2>How to <span class="accent">Stay</span> Protected</h2>
+    <div class="protect-grid">
+      <div class="protect-card">
+        <div class="protect-num">01</div>
+        <span class="protect-icon">🔑</span>
+        <h3>Strong Passwords</h3>
+        <p>Use unique, complex passwords and a password manager. Enable multi-factor authentication everywhere possible.</p>
+      </div>
+      <div class="protect-card">
+        <div class="protect-num">02</div>
+        <span class="protect-icon">🔄</span>
+        <h3>Regular Updates</h3>
+        <p>Keep operating systems and software patched. Most breaches exploit known vulnerabilities with available fixes.</p>
+      </div>
+      <div class="protect-card">
+        <div class="protect-num">03</div>
+        <span class="protect-icon">💾</span>
+        <h3>Backup Data</h3>
+        <p>Follow the 3-2-1 rule: 3 copies, 2 different media types, 1 offsite. Essential for ransomware recovery.</p>
+      </div>
+      <div class="protect-card">
+        <div class="protect-num">04</div>
+        <span class="protect-icon">🎓</span>
+        <h3>Security Awareness</h3>
+        <p>Train employees and yourself to recognize phishing, social engineering, and suspicious activity patterns.</p>
+      </div>
+      <div class="protect-card">
+        <div class="protect-num">05</div>
+        <span class="protect-icon">🛡️</span>
+        <h3>Zero Trust Model</h3>
+        <p>Never trust, always verify. Grant least-privilege access and treat every request as potentially compromised.</p>
+      </div>
+      <div class="protect-card">
+        <div class="protect-num">06</div>
+        <span class="protect-icon">🔐</span>
+        <h3>Encrypt Everything</h3>
+        <p>Encrypt data at rest and in transit. Use HTTPS, VPNs on public networks, and encrypted storage solutions.</p>
+      </div>
+      <div class="protect-card">
+        <div class="protect-num">07</div>
+        <span class="protect-icon">👁️</span>
+        <h3>Monitor & Detect</h3>
+        <p>Implement SIEM tools and continuous monitoring. The average breach goes undetected for over 200 days.</p>
+      </div>
+      <div class="protect-card">
+        <div class="protect-num">08</div>
+        <span class="protect-icon">📋</span>
+        <h3>Incident Response</h3>
+        <p>Prepare a response plan before an attack happens. Know your containment, eradication, and recovery procedures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">CyberShield</div>
+  <div class="footer-text">// DEFENDING THE DIGITAL FRONTIER //</div>
+  <div class="footer-text">SYSTEM SECURE ✓</div>
+</footer>
+
+<script>
+/* ── PARTICLE NETWORK CANVAS ── */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.r = Math.random() * 1.5 + 0.5;
+    this.alpha = Math.random() * 0.5 + 0.2;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,245,255,${this.alpha})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function drawLines() {
+  const scrollY = window.scrollY;
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,245,255,${0.12 * (1 - dist/120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawLines();
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* ── SCROLL PROGRESS ── */
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('scroll-progress').style.width = pct + '%';
+});
+
+/* ── INTERSECTION OBSERVER ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.section-tag, h2, .what-text p, .terminal-box, .pillar-card, .threat-item, .threat-meter, .protect-card, .triad-card').forEach(el => observer.observe(el));
+
+/* ── THREAT METERS ── */
+const meterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const fills = e.target.querySelectorAll('.meter-fill');
+      const labels = [document.getElementById('m1'), document.getElementById('m2'), document.getElementById('m3'), document.getElementById('m4'), document.getElementById('m5'), document.getElementById('m6')];
+      fills.forEach((fill, i) => {
+        const target = parseInt(fill.dataset.target);
+        fill.style.width = target + '%';
+        let count = 0;
+        const interval = setInterval(() => {
+          count += 2;
+          if (count >= target) { count = target; clearInterval(interval); }
+          if (labels[i]) labels[i].textContent = count + '%';
+        }, 20);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+const meter = document.getElementById('threat-meter');
+if (meter) meterObserver.observe(meter);
+
+/* ── TYPED TEXT ── */
+const phrases = [
+  "Protecting digital systems from cyberattacks.",
+  "Defending data against unauthorized access.",
+  "Securing networks in the age of AI warfare.",
+  "Your first line of defense in the digital world."
+];
+let pi = 0, ci = 0, deleting = false;
+const typedEl = document.getElementById('typed-text');
+
+function typeLoop() {
+  const phrase = phrases[pi];
+  if (!deleting) {
+    typedEl.textContent = phrase.slice(0, ++ci);
+    if (ci === phrase.length) { deleting = true; setTimeout(typeLoop, 2200); return; }
+  } else {
+    typedEl.textContent = phrase.slice(0, --ci);
+    if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+  }
+  setTimeout(typeLoop, deleting ? 40 : 65);
+}
+typeLoop();
+
+/* ── COUNTERS ── */
+function animateCounter(id, end, suffix, duration) {
+  const el = document.getElementById(id);
+  let start = 0;
+  const step = Math.ceil(end / (duration / 16));
+  const timer = setInterval(() => {
+    start = Math.min(start + step, end);
+    el.textContent = start.toLocaleString() + suffix;
+    if (start >= end) clearInterval(timer);
+  }, 16);
+}
+setTimeout(() => {
+  animateCounter('counter1', 2200, 'K', 2000);
+  animateCounter('counter2', 10, 'T', 2000);
+  animateCounter('counter3', 3, 'M', 2000);
+}, 600);
+
+/* ── TERMINAL ANIMATION ── */
+const terminalObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      let delay = 0;
+      for (let i = 1; i <= 10; i++) {
+        const el = document.getElementById('tl' + i);
+        if (el) setTimeout(() => el.classList.add('show'), delay);
+        delay += i < 3 ? 300 : 220;
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+const tBox = document.getElementById('terminal-box');
+if (tBox) terminalObserver.observe(tBox);
+
+/* ── MOUSE PARALLAX ON PARTICLES ── */
+document.addEventListener('mousemove', (e) => {
+  const mx = e.clientX / W - 0.5;
+  const my = e.clientY / H - 0.5;
+  particles.forEach(p => {
+    p.vx += mx * 0.005;
+    p.vy += my * 0.005;
+    p.vx *= 0.99;
+    p.vy *= 0.99;
+  });
+});
+
+/* ── HAMBURGER MENU ── */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+let menuOpen = false;
+
+hamburger.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  hamburger.classList.toggle('open', menuOpen);
+  mobileMenu.classList.toggle('open', menuOpen);
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    menuOpen = false;
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+</script>
+
+<!-- ── AI AGENT STYLES ── -->
+<style>
+  #ai-fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 300;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--darker);
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 20px rgba(0,245,255,0.4), 0 0 60px rgba(0,245,255,0.15);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fab-pulse 3s ease-in-out infinite;
+  }
+  @keyframes fab-pulse {
+    0%,100% { box-shadow: 0 0 20px rgba(0,245,255,0.4), 0 0 60px rgba(0,245,255,0.15); }
+    50% { box-shadow: 0 0 30px rgba(0,245,255,0.7), 0 0 80px rgba(0,245,255,0.3); }
+  }
+  #ai-fab:hover { transform: scale(1.1); }
+  #ai-fab.open { border-color: var(--magenta); box-shadow: 0 0 20px rgba(255,0,110,0.4); animation: none; }
+
+  #ai-panel {
+    position: fixed;
+    bottom: 5.5rem;
+    right: 2rem;
+    z-index: 299;
+    width: 360px;
+    max-height: 520px;
+    background: rgba(1,8,18,0.97);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    display: flex; flex-direction: column;
+    box-shadow: 0 0 40px rgba(0,245,255,0.1), 0 20px 60px rgba(0,0,0,0.6);
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    overflow: hidden;
+  }
+  #ai-panel.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .ai-header {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--card-border);
+    display: flex; align-items: center; gap: 0.8rem;
+    background: rgba(0,245,255,0.04);
+    flex-shrink: 0;
+  }
+  .ai-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--cyan);
+    background: rgba(0,245,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .ai-avatar::after {
+    content: '';
+    position: absolute;
+    bottom: 1px; right: 1px;
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    border: 1px solid var(--darker);
+    box-shadow: 0 0 6px var(--green);
+  }
+  .ai-header-info { flex: 1; }
+  .ai-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--cyan);
+    display: block;
+  }
+  .ai-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--green);
+    letter-spacing: 1px;
+  }
+  .ai-close {
+    background: none; border: none; color: var(--muted);
+    font-size: 1.2rem; cursor: pointer; padding: 4px;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .ai-close:hover { color: var(--magenta); }
+
+  #ai-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.8rem;
+    scroll-behavior: smooth;
+  }
+  #ai-messages::-webkit-scrollbar { width: 3px; }
+  #ai-messages::-webkit-scrollbar-track { background: transparent; }
+  #ai-messages::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 2px; }
+
+  .msg {
+    max-width: 88%;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    animation: msgIn 0.25s ease;
+  }
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .msg.agent {
+    background: rgba(0,245,255,0.07);
+    border: 1px solid rgba(0,245,255,0.15);
+    color: var(--text);
+    border-bottom-left-radius: 2px;
+    align-self: flex-start;
+  }
+  .msg.user {
+    background: rgba(255,0,110,0.1);
+    border: 1px solid rgba(255,0,110,0.2);
+    color: #fff;
+    border-bottom-right-radius: 2px;
+    align-self: flex-end;
+  }
+  .msg.thinking {
+    background: rgba(0,245,255,0.04);
+    border: 1px solid rgba(0,245,255,0.08);
+    color: var(--muted);
+    align-self: flex-start;
+  }
+
+  .typing-dots span {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: dot-bounce 1.2s infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dot-bounce {
+    0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .ai-suggestions {
+    padding: 0 1rem 0.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    flex-shrink: 0;
+  }
+  .suggestion-btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--cyan);
+    background: rgba(0,245,255,0.05);
+    border: 1px solid rgba(0,245,255,0.2);
+    border-radius: 20px;
+    padding: 0.3rem 0.7rem;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .suggestion-btn:hover { background: rgba(0,245,255,0.12); border-color: var(--cyan); }
+
+  .ai-input-row {
+    padding: 0.8rem 1rem;
+    border-top: 1px solid var(--card-border);
+    display: flex; gap: 0.5rem;
+    flex-shrink: 0;
+    background: rgba(0,0,0,0.3);
+  }
+  #ai-input {
+    flex: 1;
+    background: rgba(0,245,255,0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+    height: 40px;
+    line-height: 1.4;
+  }
+  #ai-input:focus { border-color: var(--cyan); }
+  #ai-input::placeholder { color: var(--muted); }
+  #ai-send {
+    width: 40px; height: 40px;
+    background: var(--cyan);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--darker);
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.15s;
+    font-weight: bold;
+  }
+  #ai-send:hover { background: #33f8ff; transform: scale(1.05); }
+  #ai-send:disabled { background: var(--muted); cursor: not-allowed; transform: none; }
+
+  .fab-label {
+    position: absolute;
+    right: 70px;
+    bottom: 50%;
+    transform: translateY(50%);
+    background: var(--darker);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: label-fade 4s ease forwards;
+  }
+  @keyframes label-fade {
+    0%,60% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    #ai-panel { right: 0.5rem; left: 0.5rem; width: auto; bottom: 5rem; }
+    #ai-fab { bottom: 1.2rem; right: 1.2rem; }
+  }
+</style>
+
+<!-- ── AI AGENT HTML ── -->
+<div id="ai-fab" title="Ask the AI Agent">🛡️<div class="fab-label">Ask AI Agent</div></div>
+
+<div id="ai-panel">
+  <div class="ai-header">
+    <div class="ai-avatar">🤖</div>
+    <div class="ai-header-info">
+      <span class="ai-name">CIPHER — AI Agent</span>
+      <span class="ai-status">● Online · Cybersecurity Expert</span>
+    </div>
+    <button class="ai-close" id="ai-close">✕</button>
+  </div>
+  <div id="ai-messages">
+    <div class="msg agent">Hello, I'm <strong>CIPHER</strong> — your AI cybersecurity agent. Ask me anything about threats, protection, hacking techniques, or how to keep your systems secure. 🔐</div>
+  </div>
+  <div class="ai-suggestions" id="ai-suggestions">
+    <button class="suggestion-btn">What is ransomware?</button>
+    <button class="suggestion-btn">How do VPNs work?</button>
+    <button class="suggestion-btn">What is phishing?</button>
+    <button class="suggestion-btn">How to make strong passwords?</button>
+  </div>
+  <div class="ai-input-row">
+    <input id="ai-input" type="text" placeholder="Ask about cybersecurity..." />
+    <button id="ai-send">➤</button>
+  </div>
+</div>
+
+<script>
+/* ── AI AGENT LOGIC ── */
+const fab = document.getElementById('ai-fab');
+const panel = document.getElementById('ai-panel');
+const closeBtn = document.getElementById('ai-close');
+const messagesEl = document.getElementById('ai-messages');
+const inputEl = document.getElementById('ai-input');
+const sendBtn = document.getElementById('ai-send');
+const suggestions = document.querySelectorAll('.suggestion-btn');
+
+let panelOpen = false;
+let chatHistory = [];
+let isLoading = false;
+
+fab.addEventListener('click', () => {
+  panelOpen = !panelOpen;
+  fab.classList.toggle('open', panelOpen);
+  panel.classList.toggle('open', panelOpen);
+  if (panelOpen) inputEl.focus();
+});
+
+closeBtn.addEventListener('click', () => {
+  panelOpen = false;
+  fab.classList.remove('open');
+  panel.classList.remove('open');
+});
+
+suggestions.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!isLoading) sendMessage(btn.textContent);
+  });
+});
+
+inputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey && !isLoading) {
+    e.preventDefault();
+    const text = inputEl.value.trim();
+    if (text) sendMessage(text);
+  }
+});
+
+sendBtn.addEventListener('click', () => {
+  const text = inputEl.value.trim();
+  if (text && !isLoading) sendMessage(text);
+});
+
+function appendMsg(text, role, isHTML = false) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  if (isHTML) div.innerHTML = text;
+  else div.textContent = text;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return div;
+}
+
+function showThinking() {
+  const div = document.createElement('div');
+  div.className = 'msg thinking';
+  div.id = 'thinking-bubble';
+  div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function removeThinking() {
+  const el = document.getElementById('thinking-bubble');
+  if (el) el.remove();
+}
+
+async function sendMessage(text) {
+  if (isLoading) return;
+
+  document.getElementById('ai-suggestions').style.display = 'none';
+
+  inputEl.value = '';
+  appendMsg(text, 'user');
+  chatHistory.push({ role: 'user', content: text });
+
+  isLoading = true;
+  sendBtn.disabled = true;
+  showThinking();
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `You are CIPHER, an expert AI cybersecurity agent embedded in a futuristic cybersecurity education website. You have deep knowledge of:
+- Cyber threats (malware, phishing, ransomware, DDoS, zero-day exploits, social engineering)
+- Security frameworks (CIA Triad, Zero Trust, NIST, ISO 27001)
+- Defensive techniques (firewalls, encryption, MFA, VPNs, endpoint security)
+- Ethical hacking and penetration testing concepts
+- Real-world breaches and case studies
+
+Your style: Confident, concise, technical but accessible. You may use short code snippets when relevant. Keep responses focused — 3-6 sentences max unless depth is truly needed. Never assist with actual attacks or illegal activity. Format with line breaks for readability but no markdown headers.`,
+        messages: chatHistory
+      })
+    });
+
+    const data = await response.json();
+    removeThinking();
+
+    if (data.error) throw new Error(data.error.message);
+
+    const reply = data.content.map(b => b.text || '').join('');
+    chatHistory.push({ role: 'assistant', content: reply });
+
+    const formatted = reply
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>');
+    appendMsg(formatted, 'agent', true);
+
+  } catch (err) {
+    removeThinking();
+    appendMsg('⚠ Connection to secure server failed. Check your network and try again.', 'agent');
+    chatHistory.pop();
+  }
+
+  isLoading = false;
+  sendBtn.disabled = false;
+  inputEl.focus();
+}
+</script>
+</body>
+</html>
